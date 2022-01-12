@@ -20,7 +20,7 @@ const IndexPage = ({ data }) => {
           <div key={show.id}>
             <p>{show.name}</p>
             <img
-              src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w200${show.poster_path}`}
               alt={show.name}
             />
           </div>
