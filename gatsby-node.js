@@ -23,7 +23,7 @@ exports.sourceNodes = async ({
   );
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
 
   data.results.forEach((item) => {
     createNode({
