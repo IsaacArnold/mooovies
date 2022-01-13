@@ -9,7 +9,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-brandpurple p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-dark-bg p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <GiCow className="w-11 h-11 mr-2" />
         <span className="font-semibold text-xl tracking-tight">Mooovies</span>

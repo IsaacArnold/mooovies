@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout">
+    <div className="layout bg-light-bg font-Poppins">
       <Navigation />
       <div className="content">{children}</div>
       {/* <Footer /> */}
