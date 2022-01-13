@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
 
-const TrendingTVShow = ({ data: { show } }) => {
+const TrendingMovie = ({ data: { movie } }) => {
   const [details, setDetails] = useState();
 
-  // Fetch more detailed data for the specified show
+  // Fetch more detailed data for the specified movie
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/tv/${show.id}?api_key=${process.env.MOVIE_API_V3}`;
+    const url = `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${process.env.MOVIE_API_V3}`;
     fetch(url)
       .then((res) => res.json())
       .then((result) => setDetails(result))
       .catch((err) => console.log(err));
-  }, [setDetails, show.id]);
+  }, [setDetails, movie.id]);
 
   console.log(details);
 
@@ -27,8 +27,8 @@ const TrendingTVShow = ({ data: { show } }) => {
               className="object-fill w-96"
             />
           </div>
-          <h1>{show.name}</h1>
-          <p>{show.overview}</p>
+          <h1>{movie.name}</h1>
+          <p>{movie.overview}</p>
           <div>
             {details.genres.map((genre) => (
               <p key={genre.name}>{genre.name}</p>
@@ -40,18 +40,18 @@ const TrendingTVShow = ({ data: { show } }) => {
   );
 };
 
-export default TrendingTVShow;
+export default TrendingMovie;
 
 // Uses the id variable from 'gatsby-node' to query and get the data for specific show
 export const query = graphql`
   query ($id: String) {
-    show: trendingTvShows(id: { eq: $id }) {
-      name
+    movie: trendingMovies(id: { eq: $id }) {
+      title
       id
       poster_path
       backdrop_path
       overview
-      first_air_date(formatString: "D MMM YYYY")
+      release_date(formatString: "D MMM YYYY")
     }
   }
 `;

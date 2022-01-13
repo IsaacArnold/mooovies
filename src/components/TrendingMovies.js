@@ -2,15 +2,15 @@ import React from "react";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import { FaStar } from "react-icons/fa";
 
-const TrendingTVShows = () => {
+const TrendingMovies = () => {
   const data = useStaticQuery(graphql`
-    query TVQuery {
-      allTrendingTvShows(limit: 10) {
+    query MovieQuery {
+      allTrendingMovies(limit: 10) {
         nodes {
-          name
+          title
           id
           poster_path
-          first_air_date(formatString: "D MMM YYYY")
+          release_date(formatString: "D MMM YYYY")
           vote_average
         }
       }
@@ -18,7 +18,7 @@ const TrendingTVShows = () => {
   `);
 
   const {
-    allTrendingTvShows: { nodes },
+    allTrendingMovies: { nodes },
   } = data;
 
   console.log(nodes);
@@ -26,31 +26,33 @@ const TrendingTVShows = () => {
   return (
     <>
       <section className="font-Poppins container px-4 flex-grow w-full pt-8">
-        <h1 className="font-semibold">Today's Trending TV Shows</h1>
-        <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-3">
-          {nodes.map((show) => (
+        <h1 className="font-semibold">Today's Trending Movies</h1>
+        <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mb-8 mt-5 pb-3">
+          {nodes.map((movie) => (
             <div
-              key={show.id}
+              key={movie.id}
               className="flex-none w-1/2 md:w-1/3 mr-8 md:pb-4 rounded-lg h-auto"
             >
               <div>
-                <Link to={`/tv/${show.id}-${show.name}`}>
+                <Link to={`/movie/${movie.id}-${movie.title}`}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w200${show.poster_path}`}
-                    alt={show.name}
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
                     className="w-full rounded-lg shadow-md"
                   />
                 </Link>
               </div>
               <div className="mt-3 mx-2">
                 <div className="w-full flex items-center justify-between">
-                  <p className="font-medium">{show.name}</p>
+                  <p className="font-medium">{movie.title}</p>
                   <div className="flex items-center justify-items-center">
                     <FaStar className="fill-gray-500 mr-1 w-[15px] h-[15px]" />
-                    <p className="text-gray-500 text-sm">{show.vote_average}</p>
+                    <p className="text-gray-500 text-sm">
+                      {movie.vote_average}
+                    </p>
                   </div>
                 </div>
-                <p className="text-xs text-gray-700">{show.first_air_date}</p>
+                <p className="text-xs text-gray-700">{movie.release_date}</p>
               </div>
             </div>
           ))}
@@ -60,4 +62,4 @@ const TrendingTVShows = () => {
   );
 };
 
-export default TrendingTVShows;
+export default TrendingMovies;
