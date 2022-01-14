@@ -21,7 +21,7 @@ const TrendingMovies = () => {
     allTrendingMovies: { nodes },
   } = data;
 
-  console.log(nodes);
+  //   console.log(nodes);
 
   return (
     <>
