@@ -21,7 +21,7 @@ const TrendingTVShows = () => {
     allTrendingTvShows: { nodes },
   } = data;
 
-  console.log(nodes);
+  //   console.log(nodes);
 
   return (
     <>

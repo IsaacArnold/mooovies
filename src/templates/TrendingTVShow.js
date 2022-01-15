@@ -29,8 +29,8 @@ const TrendingTVShow = ({ data: { show } }) => {
       .catch((Rerror) => console.log(Rerror));
   }, [setDetails, show.id, setCast, setRating]);
 
-  console.log(details);
-  console.log(cast);
+  // console.log(details);
+  // console.log(cast);
   // console.log(rating);
 
   return (
