@@ -5,10 +5,6 @@ import fetch from "cross-fetch";
 import { BsPersonCircle } from "react-icons/bs";
 import moment from "moment";
 
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
-
 const TrendingTVShow = ({ data: { show } }) => {
   const [details, setDetails] = useState();
   const [cast, setCast] = useState();
