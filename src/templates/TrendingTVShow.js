@@ -47,9 +47,9 @@ const TrendingTVShow = ({ data: { show } }) => {
             />
           </div>
           <div className="flex flex-col w-full px-4 mx-auto my-5">
-            <h1 className="text-center text-lg font-medium">
+            <h1 className="text-center text-lg font-medium lg:text-2xl">
               {details.name}{" "}
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-gray-700 lg:text-xl">
                 {"("}
                 {details.first_air_date.slice(0, 4)}
                 {")"}
@@ -59,11 +59,11 @@ const TrendingTVShow = ({ data: { show } }) => {
             {/* Secondary show information */}
             <div className="my-2">
               <div className="text-center">
-                <p className="text-gray-500 border border-gray-500 px-1 inline rounded-lg text-xs">
+                <p className="text-gray-500 border border-gray-500 px-1 inline rounded-lg text-xs lg:text-base">
                   {rating.results[1].rating}
                 </p>
-                <span className="text-xs text-gray-500"> | </span>
-                <p className="inline text-xs text-gray-500">
+                <span className="text-xs text-gray-500 lg:text-base"> | </span>
+                <p className="inline text-xs text-gray-500 lg:text-base">
                   Average episode run time:{" "}
                   {details.episode_run_time.reduce((a, b) => a + b, 0) /
                     details.episode_run_time.length || 0}
@@ -73,7 +73,7 @@ const TrendingTVShow = ({ data: { show } }) => {
                   {details.genres.map((genre, index) => (
                     <p
                       key={genre.name}
-                      className="inline text-xs text-gray-500"
+                      className="inline text-xs text-gray-500 lg:text-base"
                     >
                       {genre.name}
                       {index < details.genres.length - 1 ? ", " : ""}
@@ -85,29 +85,33 @@ const TrendingTVShow = ({ data: { show } }) => {
 
             {/* Show overview */}
             <div className="my-5">
-              <h2 className="font-medium my-2">Overview</h2>
-              <p className="italic text-gray-700 text-xs">{details.tagline}</p>
-              <p className="text-sm font-normal my-2">{details.overview}</p>
+              <h2 className="font-medium my-2 lg:text-xl">Overview</h2>
+              <p className="italic text-gray-700 text-xs lg:text-base">
+                {details.tagline}
+              </p>
+              <p className="text-sm font-normal my-2 max-w-[590px] lg:text-lg">
+                {details.overview}
+              </p>
               <div className={details.created_by[0]?.name ? "block" : "hidden"}>
-                <h3 className="font-medium text-xs mt-4">
+                <h3 className="font-medium text-xs mt-4 lg:text-base">
                   {details.created_by[0]?.name}
                 </h3>
-                <p className="text-xs font-light">Creator</p>
+                <p className="text-xs font-light lg:text-base">Creator</p>
               </div>
             </div>
 
             {/* Cast information */}
-            <h2 className="font-medium mt-2">Series Cast</h2>
+            <h2 className="font-medium mt-2 lg:text-xl">Series Cast</h2>
             <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
               {cast.slice(0, 10).map((member) => (
                 <div
                   key={member.id}
-                  className="flex-none w-2/5 md:w-1/3 mr-0 md:pb-4 rounded-lg h-auto"
+                  className="flex-none w-2/5 md:w-[30%] mr-0 md:pb-4 rounded-lg h-auto lg:w-[23%] xl:w-[18%] 2xl:max-w-[15%]"
                 >
                   {member.profile_path != null ? (
                     <img
                       src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
-                      className="rounded-lg shadow-md w-[85%]"
+                      className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
                       alt={member.name}
                     />
                   ) : (
@@ -117,11 +121,13 @@ const TrendingTVShow = ({ data: { show } }) => {
                   )}
 
                   <div className="ml-2 mr-6 mt-2">
-                    <p className="font-medium text-sm">{member.name}</p>
-                    <p className="text-gray-700 text-sm">
+                    <p className="font-medium text-sm lg:text-lg">
+                      {member.name}
+                    </p>
+                    <p className="text-gray-700 text-sm lg:text-lg">
                       {member.roles[0].character}
                     </p>
-                    <p className="text-gray-500 text-xs">
+                    <p className="text-gray-500 text-xs lg:text-base">
                       {member.total_episode_count} Episodes
                     </p>
                   </div>
@@ -131,9 +137,9 @@ const TrendingTVShow = ({ data: { show } }) => {
 
             {/* Season Information */}
             <div className="mb-10">
-              <h2 className="font-medium mt-7">
+              <h2 className="font-medium mt-7 lg:text-xl">
                 Seasons{" "}
-                <span className="text-sm">
+                <span className="text-sm lg:text-lg">
                   {"("}
                   {details.seasons.length}
                   {")"}
@@ -146,15 +152,20 @@ const TrendingTVShow = ({ data: { show } }) => {
                     className="flex-none w-[75%] md:w-1/3 mr-[15px] md:pb-4 rounded-lg h-auto shadow-md bg-dark-bg"
                   >
                     <div className="ml-2 mr-6 mt-2 pb-2 pl-2 text-white">
-                      <p className="font-medium text-sm">{season.name}</p>
-                      <p className="text-light-bg text-xs inline">
+                      <p className="font-medium text-sm lg:text-lg">
+                        {season.name}
+                      </p>
+                      <p className="text-light-bg text-xs inline lg:text-base">
                         {season.air_date.slice(0, 4)}
                       </p>
-                      <span className="text-xs text-light-bg"> | </span>
-                      <p className="text-light-bg text-xs inline">
+                      <span className="text-xs text-light-bg lg:text-base">
+                        {" "}
+                        |{" "}
+                      </span>
+                      <p className="text-light-bg text-xs inline lg:text-base">
                         {season.episode_count} Episodes
                       </p>
-                      <p className="text-light-bg text-xs">
+                      <p className="text-light-bg text-xs lg:text-base">
                         {season.name} of {details.name} premiered on{" "}
                         {moment(season.air_date).format("D MMMM YYYY")}
                       </p>

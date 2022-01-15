@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import React from "react";
 import { GiCow } from "react-icons/gi";
 
@@ -10,9 +11,14 @@ const Navigation = () => {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-dark-bg p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <GiCow className="w-11 h-11 mr-2" />
-        <span className="font-semibold text-xl tracking-tight">Mooovies</span>
+      <div>
+        <Link
+          to="/"
+          className="flex items-center flex-shrink-0 text-white mr-6"
+        >
+          <GiCow className="w-11 h-11 mr-2" />
+          <span className="font-semibold text-xl tracking-tight">Mooovies</span>
+        </Link>
       </div>
       <div className="block lg:hidden" onClick={handleClick}>
         <button className="flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-white">
