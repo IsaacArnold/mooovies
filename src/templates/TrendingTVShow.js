@@ -85,7 +85,7 @@ const TrendingTVShow = ({ data: { show } }) => {
 
             {/* Show overview */}
             <div className="my-5">
-              <h2 className="font-medium my-2 lg:text-xl">Overview</h2>
+              <h2 className="font-medium my-2 lg:text-2xl">Overview</h2>
               <p className="italic text-gray-700 text-xs lg:text-base">
                 {details.tagline}
               </p>
@@ -101,7 +101,7 @@ const TrendingTVShow = ({ data: { show } }) => {
             </div>
 
             {/* Cast information */}
-            <h2 className="font-medium mt-2 lg:text-xl">Series Cast</h2>
+            <h2 className="font-medium mt-2 lg:text-2xl">Series Cast</h2>
             <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
               {cast.slice(0, 10).map((member) => (
                 <div
@@ -137,7 +137,7 @@ const TrendingTVShow = ({ data: { show } }) => {
 
             {/* Season Information */}
             <div className="mb-10">
-              <h2 className="font-medium mt-7 lg:text-xl">
+              <h2 className="font-medium mt-7 lg:text-2xl">
                 Seasons{" "}
                 <span className="text-sm lg:text-lg">
                   {"("}
