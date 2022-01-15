@@ -42,7 +42,7 @@ const TrendingTVShow = ({ data: { show } }) => {
             <img
               src={`https://image.tmdb.org/t/p/original${details.backdrop_path}`}
               alt={details.name}
-              className="object-fill w-96"
+              className="object-cover w-full max-h-[250px]"
               id="backdrop"
             />
           </div>
