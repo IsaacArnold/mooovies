@@ -8,7 +8,6 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-postcss",
-    "gatsby-plugin-extract-image-colors",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-image",
     {
