@@ -9,12 +9,12 @@ const TrendingTVShow = ({ data: { show } }) => {
   const [details, setDetails] = useState();
   const [cast, setCast] = useState();
   const [rating, setRating] = useState();
-
+  const API_KEY = process.env.MOVIE_API_V3;
   // Fetch more detailed data for the specified show
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/tv/${show.id}?api_key=353e0f45e349128efd51a2733d9f44f6`;
-    const castURL = `https://api.themoviedb.org/3/tv/${show.id}/aggregate_credits?api_key=353e0f45e349128efd51a2733d9f44f6`;
-    const ratingURL = `https://api.themoviedb.org/3/tv/${show.id}/content_ratings?api_key=353e0f45e349128efd51a2733d9f44f6`;
+    const url = `https://api.themoviedb.org/3/tv/${show.id}?api_key=${API_KEY}`;
+    const castURL = `https://api.themoviedb.org/3/tv/${show.id}/aggregate_credits?api_key=${API_KEY}`;
+    const ratingURL = `https://api.themoviedb.org/3/tv/${show.id}/content_ratings?api_key=${API_KEY}`;
     fetch(url)
       .then((res) => res.json())
       .then((result) => setDetails(result))
