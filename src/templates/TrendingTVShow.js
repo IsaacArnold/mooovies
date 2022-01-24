@@ -42,7 +42,7 @@ const TrendingTVShow = ({ data: { show } }) => {
             <img
               src={`https://image.tmdb.org/t/p/original${details.backdrop_path}`}
               alt={details.name}
-              className="object-cover w-full max-h-[250px]"
+              className="object-cover w-full max-h-[300px]"
               id="backdrop"
             />
           </div>
@@ -89,7 +89,7 @@ const TrendingTVShow = ({ data: { show } }) => {
               <p className="italic text-gray-700 text-xs lg:text-base">
                 {details.tagline}
               </p>
-              <p className="text-sm font-normal my-2 max-w-[590px] lg:text-lg">
+              <p className="text-sm font-normal my-2 max-w-[700px] lg:text-lg">
                 {details.overview}
               </p>
               <div className={details.created_by[0]?.name ? "block" : "hidden"}>
