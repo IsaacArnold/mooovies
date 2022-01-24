@@ -25,26 +25,26 @@ const TrendingMovies = () => {
 
   return (
     <>
-      <section className="font-Poppins container px-4 flex-grow w-full pt-8">
+      <section className="font-Poppins px-4 flex-grow w-full pt-8">
         <h1 className="font-semibold">Today's Trending Movies</h1>
-        <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mb-8 mt-5 pb-3">
+        <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-3 w-full">
           {nodes.map((movie) => (
             <div
               key={movie.id}
-              className="flex-none w-1/2 md:w-1/3 mr-8 md:pb-4 rounded-lg h-auto"
+              className="flex-none w-1/2 mr-8 md:pb-4 rounded-lg h-auto md:w-[27%] lg:w-[20%] xl:w-[16%] 2xl:w-[13%]"
             >
               <div>
                 <Link to={`/movie/${movie.id}-${movie.title}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                     alt={movie.title}
-                    className="w-full rounded-lg shadow-md"
+                    className="w-full rounded-lg shadow-md max-w-[200px]"
                   />
                 </Link>
               </div>
               <div className="mt-3 mx-2">
                 <div className="w-full flex items-center justify-between">
-                  <p className="font-medium">{movie.title}</p>
+                  <p className="font-medium max-w-[110px]">{movie.title}</p>
                   <div className="flex items-center justify-items-center">
                     <FaStar className="fill-gray-500 mr-1 w-[15px] h-[15px]" />
                     <p className="text-gray-500 text-sm">
