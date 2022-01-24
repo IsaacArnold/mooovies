@@ -6,11 +6,13 @@ import { BsPersonCircle } from "react-icons/bs";
 const TrendingMovie = ({ data: { movie } }) => {
   const [details, setDetails] = useState();
   const [cast, setCast] = useState();
+  const [rating, setRating] = useState();
 
   // Fetch more detailed data for the specified movie
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/movie/${movie.id}?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const castURL = `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=353e0f45e349128efd51a2733d9f44f6`;
+    const ratingURL = `http://api.themoviedb.org/3/movie/${movie.id}?api_key=353e0f45e349128efd51a2733d9f44f6&append_to_response=release_dates`;
 
     fetch(url)
       .then((res) => res.json())
@@ -20,9 +22,19 @@ const TrendingMovie = ({ data: { movie } }) => {
       .then((response) => response.json())
       .then((castRes) => setCast(castRes.cast))
       .catch((error) => console.log(error));
-  }, [setDetails, movie.id, setCast]);
+    fetch(ratingURL)
+      .then((Rresponse) => Rresponse.json())
+      .then((ratRes) =>
+        setRating(
+          ratRes.release_dates.results.filter(
+            (entry) => entry.iso_3166_1 === "US"
+          )
+        )
+      )
+      .catch((Rerror) => console.log(Rerror));
+  }, [setDetails, movie.id, setCast, setRating]);
 
-  console.log(details);
+  // console.log(details);
   // console.log(cast);
 
   return (
@@ -51,10 +63,10 @@ const TrendingMovie = ({ data: { movie } }) => {
             {/* Secondary show information */}
             <div className="my-2">
               <div className="text-center">
-                <p className="text-gray-500 border border-gray-500 px-1 inline rounded-lg text-xs lg:text-base">
+                {/* <p className="text-gray-500 border border-gray-500 px-1 inline rounded-lg text-xs lg:text-base">
                   M
                 </p>
-                <span className="text-xs text-gray-500 lg:text-base"> | </span>
+                <span className="text-xs text-gray-500 lg:text-base"> | </span> */}
                 <p className="inline text-xs text-gray-500 lg:text-base">
                   Runtime: {details.runtime}m
                 </p>
