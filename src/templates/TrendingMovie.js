@@ -22,7 +22,7 @@ const TrendingMovie = ({ data: { movie } }) => {
       .catch((error) => console.log(error));
   }, [setDetails, movie.id, setCast]);
 
-  // console.log(details);
+  console.log(details);
   // console.log(cast);
 
   return (
@@ -40,7 +40,7 @@ const TrendingMovie = ({ data: { movie } }) => {
           </div>
           <div className="flex flex-col w-full px-4 mx-auto my-5">
             <h1 className="text-center text-lg font-medium lg:text-2xl">
-              {movie.name}{" "}
+              {details.title}{" "}
               <span className="text-sm text-gray-700 lg:text-xl">
                 {"("}
                 {details.release_date.slice(0, 4)}
