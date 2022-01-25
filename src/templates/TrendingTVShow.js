@@ -9,12 +9,14 @@ const TrendingTVShow = ({ data: { show } }) => {
   const [details, setDetails] = useState();
   const [cast, setCast] = useState();
   const [rating, setRating] = useState();
+  const [watchProviders, setWatchProviders] = useState();
 
   // Fetch more detailed data for the specified show
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/tv/${show.id}?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const castURL = `https://api.themoviedb.org/3/tv/${show.id}/aggregate_credits?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const ratingURL = `https://api.themoviedb.org/3/tv/${show.id}/content_ratings?api_key=353e0f45e349128efd51a2733d9f44f6`;
+    const providersURL = `https://api.themoviedb.org/3/tv/${show.id}/watch/providers?api_key=353e0f45e349128efd51a2733d9f44f6`;
     fetch(url)
       .then((res) => res.json())
       .then((result) => setDetails(result))
@@ -27,15 +29,31 @@ const TrendingTVShow = ({ data: { show } }) => {
       .then((Rresponse) => Rresponse.json())
       .then((ratRes) => setRating(ratRes))
       .catch((Rerror) => console.log(Rerror));
-  }, [setDetails, show.id, setCast, setRating]);
+    fetch(providersURL)
+      .then((Wresponse) => Wresponse.json())
+      .then((watchRes) => setWatchProviders(watchRes))
+      .catch((Werror) => console.log(Werror));
+  }, [setDetails, show.id, setCast, setRating, setWatchProviders]);
 
   // console.log(details);
   // console.log(cast);
   // console.log(rating);
+  // console.log(watchProviders);
+
+  let AUProvider;
+
+  if (watchProviders) {
+    AUProvider = watchProviders.results.AU;
+    console.log(AUProvider);
+  } else {
+    console.log("////// LOADING //////");
+  }
+  // const AUProvider = watchProviders.results.find((element) => element == "AU");
+  // console.log(AUProvider);
 
   return (
     <Layout>
-      {details && cast && rating && (
+      {details && cast && rating && watchProviders && (
         <section className="font-Poppins bg-light-bg">
           <div className="flex w-full">
             {/* Backdrop image */}
@@ -98,6 +116,20 @@ const TrendingTVShow = ({ data: { show } }) => {
                 </h3>
                 <p className="text-xs font-light lg:text-base">Creator</p>
               </div>
+            </div>
+
+            {/* Watch providers */}
+            <div className="my-5">
+              <h2 className="font-medium my-2 lg:text-2xl">Watch on:</h2>
+              {/* Netflix logo */}
+              <img
+                src={`https://image.tmdb.org/t/p/original${AUProvider.flatrate[0].logo_path}`}
+                alt={AUProvider.flatrate[0].provider_name}
+                className="object-cover w-[80px] rounded-lg"
+              />
+              <p className="italic text-gray-700 text-xs lg:text-base">
+                {AUProvider.flatrate[0].provider_name}
+              </p>
             </div>
 
             {/* Cast information */}

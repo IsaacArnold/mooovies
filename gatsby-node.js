@@ -12,12 +12,10 @@ exports.sourceNodes = async ({
     `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.MOVIE_API_V3}`
   );
   const data = await response.json();
-  // console.log(data);
 
   const movieRes = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.MOVIE_API_V3}`
   );
-
   const movies = await movieRes.json();
 
   data.results.forEach((item) => {

@@ -35,7 +35,7 @@ const TrendingMovie = ({ data: { movie } }) => {
   }, [setDetails, movie.id, setCast, setRating]);
 
   // console.log(details);
-  // console.log(cast);
+  console.log(cast);
 
   return (
     <Layout>
