@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import fetch from "cross-fetch";
 import { BsPersonCircle } from "react-icons/bs";
 import moment from "moment";
@@ -121,15 +121,14 @@ const TrendingTVShow = ({ data: { show } }) => {
             {/* Watch providers */}
             <div className="my-5">
               <h2 className="font-medium my-2 lg:text-2xl">Watch on:</h2>
-              {/* Netflix logo */}
-              <img
-                src={`https://image.tmdb.org/t/p/original${AUProvider.flatrate[0].logo_path}`}
-                alt={AUProvider.flatrate[0].provider_name}
-                className="object-cover w-[80px] rounded-lg"
-              />
-              <p className="italic text-gray-700 text-xs lg:text-base">
-                {AUProvider.flatrate[0].provider_name}
-              </p>
+              <a href={AUProvider.link}>
+                {/* Netflix logo */}
+                <img
+                  src={`https://image.tmdb.org/t/p/original${AUProvider.flatrate[0].logo_path}`}
+                  alt={AUProvider.flatrate[0].provider_name}
+                  className="object-cover w-8 rounded-lg md:w-12"
+                />
+              </a>
             </div>
 
             {/* Cast information */}
