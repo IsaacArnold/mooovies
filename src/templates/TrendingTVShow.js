@@ -10,6 +10,7 @@ const TrendingTVShow = ({ data: { show } }) => {
   const [cast, setCast] = useState();
   const [rating, setRating] = useState();
   const [watchProviders, setWatchProviders] = useState();
+  const [recommendations, setRecommendations] = useState();
 
   // Fetch more detailed data for the specified show
   useEffect(() => {
@@ -17,6 +18,7 @@ const TrendingTVShow = ({ data: { show } }) => {
     const castURL = `https://api.themoviedb.org/3/tv/${show.id}/aggregate_credits?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const ratingURL = `https://api.themoviedb.org/3/tv/${show.id}/content_ratings?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const providersURL = `https://api.themoviedb.org/3/tv/${show.id}/watch/providers?api_key=353e0f45e349128efd51a2733d9f44f6`;
+    const recURL = `https://api.themoviedb.org/3/tv/${show.id}/recommendations?api_key=353e0f45e349128efd51a2733d9f44f6`;
     fetch(url)
       .then((res) => res.json())
       .then((result) => setDetails(result))
@@ -33,23 +35,33 @@ const TrendingTVShow = ({ data: { show } }) => {
       .then((Wresponse) => Wresponse.json())
       .then((watchRes) => setWatchProviders(watchRes))
       .catch((Werror) => console.log(Werror));
-  }, [setDetails, show.id, setCast, setRating, setWatchProviders]);
+    fetch(recURL)
+      .then((RecResponse) => RecResponse.json())
+      .then((recRes) => setRecommendations(recRes))
+      .catch((RecError) => console.log(RecError));
+  }, [
+    setDetails,
+    show.id,
+    setCast,
+    setRating,
+    setWatchProviders,
+    setRecommendations,
+  ]);
 
   // console.log(details);
   // console.log(cast);
   // console.log(rating);
   // console.log(watchProviders);
+  console.log(recommendations);
 
   let AUProvider;
 
   if (watchProviders) {
     AUProvider = watchProviders.results.AU;
-    console.log(AUProvider);
+    // console.log(AUProvider);
   } else {
     console.log("////// LOADING //////");
   }
-  // const AUProvider = watchProviders.results.find((element) => element == "AU");
-  // console.log(AUProvider);
 
   return (
     <Layout>
@@ -122,7 +134,6 @@ const TrendingTVShow = ({ data: { show } }) => {
             <div className="my-5">
               <h2 className="font-medium my-2 lg:text-2xl">Watch on:</h2>
               <a href={AUProvider.link}>
-                {/* Netflix logo */}
                 <img
                   src={`https://image.tmdb.org/t/p/original${AUProvider.flatrate[0].logo_path}`}
                   alt={AUProvider.flatrate[0].provider_name}
@@ -204,6 +215,46 @@ const TrendingTVShow = ({ data: { show } }) => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Recommendations */}
+            <h2 className="font-medium mt-2 lg:text-2xl">You may also like</h2>
+            <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
+              {recommendations.results.slice(0, 10).map((recommendation) => (
+                <div
+                  key={recommendation.id}
+                  className="flex-none w-2/5 md:w-[30%] mr-0 md:pb-4 rounded-lg h-auto lg:w-[23%] xl:w-[18%] 2xl:max-w-[15%]"
+                >
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${recommendation.backdrop_path}`}
+                    alt={recommendation.name}
+                    className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
+                  />
+                  {/* {recommendation.backdrop_path != null ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${recommendation.profile_path}`}
+                      className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
+                      alt={recommendation.name}
+                    />
+                  ) : (
+                    <div className="w-[117px] h-[175px] rounded-lg shadow-md bg-dark-bg flex justify-center items-center">
+                      <BsPersonCircle className="fill-white w-[50px] h-[50px]" />
+                    </div>
+                  )} */}
+
+                  <div className="ml-2 mr-6 mt-2">
+                    <p className="font-medium text-sm lg:text-lg">
+                      {recommendation.name}
+                    </p>
+                    <p className="text-gray-700 text-sm lg:text-lg">
+                      {recommendation.first_air_date.slice(0, 4)}
+                    </p>
+                    <p className="text-gray-500 text-xs lg:text-base">
+                      {recommendation.total_episode_count} Episodes
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
