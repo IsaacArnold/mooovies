@@ -66,7 +66,7 @@ const TrendingTVShow = ({ data: { show } }) => {
   return (
     <Layout>
       {details && cast && rating && watchProviders && recommendations && (
-        <section className="font-Poppins bg-light-bg">
+        <main className="font-Poppins bg-light-bg">
           <div className="flex w-full">
             {/* Backdrop image */}
             <img
@@ -218,46 +218,42 @@ const TrendingTVShow = ({ data: { show } }) => {
             </div>
 
             {/* Recommendations */}
-            <h2 className="font-medium mt-2 lg:text-2xl">You may also like</h2>
-            <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
-              {recommendations.results.slice(0, 10).map((recommendation) => (
-                <div
-                  key={recommendation.id}
-                  className="flex-none w-2/5 md:w-[30%] mr-0 md:pb-4 rounded-lg h-auto lg:w-[23%] xl:w-[18%] 2xl:max-w-[15%]"
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/original${recommendation.backdrop_path}`}
-                    alt={recommendation.name}
-                    className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
-                  />
-                  {/* {recommendation.backdrop_path != null ? (
+            <section
+              className={
+                recommendations.results.length > 0 ? "block" : "hidden"
+              }
+            >
+              <h2 className="font-medium mt-2 lg:text-2xl">
+                You may also like
+              </h2>
+              <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
+                {recommendations.results.slice(0, 10).map((recommendation) => (
+                  <div
+                    key={recommendation.id}
+                    className="flex-none w-2/5 md:w-[30%] mr-0 md:pb-4 rounded-lg h-auto lg:w-[23%] xl:w-[18%] 2xl:max-w-[15%]"
+                  >
                     <img
-                      src={`https://image.tmdb.org/t/p/w200${recommendation.profile_path}`}
-                      className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
+                      src={`https://image.tmdb.org/t/p/original${recommendation.backdrop_path}`}
                       alt={recommendation.name}
+                      className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
                     />
-                  ) : (
-                    <div className="w-[117px] h-[175px] rounded-lg shadow-md bg-dark-bg flex justify-center items-center">
-                      <BsPersonCircle className="fill-white w-[50px] h-[50px]" />
+                    <div className="ml-2 mr-6 mt-2">
+                      <p className="font-medium text-sm lg:text-lg">
+                        {recommendation.name}
+                      </p>
+                      <p className="text-gray-700 text-sm lg:text-lg">
+                        {recommendation.first_air_date.slice(0, 4)}
+                      </p>
+                      <p className="text-gray-500 text-xs lg:text-base">
+                        {recommendation.total_episode_count} Episodes
+                      </p>
                     </div>
-                  )} */}
-
-                  <div className="ml-2 mr-6 mt-2">
-                    <p className="font-medium text-sm lg:text-lg">
-                      {recommendation.name}
-                    </p>
-                    <p className="text-gray-700 text-sm lg:text-lg">
-                      {recommendation.first_air_date.slice(0, 4)}
-                    </p>
-                    <p className="text-gray-500 text-xs lg:text-base">
-                      {recommendation.total_episode_count} Episodes
-                    </p>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
+        </main>
       )}
     </Layout>
   );
