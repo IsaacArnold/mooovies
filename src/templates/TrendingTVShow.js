@@ -65,7 +65,7 @@ const TrendingTVShow = ({ data: { show } }) => {
 
   return (
     <Layout>
-      {details && cast && rating && watchProviders && (
+      {details && cast && rating && watchProviders && recommendations && (
         <section className="font-Poppins bg-light-bg">
           <div className="flex w-full">
             {/* Backdrop image */}
