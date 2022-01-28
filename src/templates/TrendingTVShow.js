@@ -58,7 +58,7 @@ const TrendingTVShow = ({ data: { show } }) => {
 
   if (watchProviders) {
     AUProvider = watchProviders.results.AU;
-    console.log(AUProvider);
+    // console.log(AUProvider);
   } else {
     console.log("////// LOADING //////");
   }
