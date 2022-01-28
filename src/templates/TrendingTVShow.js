@@ -52,13 +52,13 @@ const TrendingTVShow = ({ data: { show } }) => {
   // console.log(cast);
   // console.log(rating);
   // console.log(watchProviders);
-  console.log(recommendations);
+  // console.log(recommendations);
 
   let AUProvider;
 
   if (watchProviders) {
     AUProvider = watchProviders.results.AU;
-    // console.log(AUProvider);
+    console.log(AUProvider);
   } else {
     console.log("////// LOADING //////");
   }
@@ -131,12 +131,19 @@ const TrendingTVShow = ({ data: { show } }) => {
             </div>
 
             {/* Watch providers */}
+            {/* TODO: Get the location of the user - then loop through the WatchProviders and find the matching region and display the respective provider for their location */}
             <div className="my-5">
               <h2 className="font-medium my-2 lg:text-2xl">Watch on:</h2>
-              <a href={AUProvider.link}>
+              <p className={AUProvider === undefined ? "block" : "hidden"}>
+                Unfortunately you can't watch this show in Australia
+              </p>
+              <a
+                className={AUProvider === undefined ? "hidden" : "inline"}
+                href={AUProvider?.link}
+              >
                 <img
-                  src={`https://image.tmdb.org/t/p/original${AUProvider.flatrate[0].logo_path}`}
-                  alt={AUProvider.flatrate[0].provider_name}
+                  src={`https://image.tmdb.org/t/p/original${AUProvider?.flatrate[0].logo_path}`}
+                  alt={AUProvider?.flatrate[0].provider_name}
                   className="object-cover w-8 rounded-lg md:w-12"
                 />
               </a>
@@ -157,7 +164,7 @@ const TrendingTVShow = ({ data: { show } }) => {
                       alt={member.name}
                     />
                   ) : (
-                    <div className="w-[117px] h-[175px] rounded-lg shadow-md bg-dark-bg flex justify-center items-center">
+                    <div className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px] h-[174px] md:h-[300px] bg-dark-bg flex justify-center items-center">
                       <BsPersonCircle className="fill-white w-[50px] h-[50px]" />
                     </div>
                   )}
