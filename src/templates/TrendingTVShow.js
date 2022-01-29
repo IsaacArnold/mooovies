@@ -53,6 +53,14 @@ const TrendingTVShow = ({ data: { show } }) => {
   // console.log(rating);
   // console.log(watchProviders);
   // console.log(recommendations);
+  let averageRunTime;
+  if (details) {
+    averageRunTime =
+      details.episode_run_time.reduce((a, b) => a + b, 0) /
+        details.episode_run_time.length || 0;
+  } else {
+    console.log("////// LOADING DETAILS ///////");
+  }
 
   let AUProvider;
 
@@ -94,10 +102,7 @@ const TrendingTVShow = ({ data: { show } }) => {
                 </p>
                 <span className="text-xs text-gray-500 lg:text-base"> | </span>
                 <p className="inline text-xs text-gray-500 lg:text-base">
-                  Average episode run time:{" "}
-                  {details.episode_run_time.reduce((a, b) => a + b, 0) /
-                    details.episode_run_time.length || 0}
-                  m
+                  Average episode run time: {Math.ceil(averageRunTime)}m
                 </p>
                 <div>
                   {details.genres.map((genre, index) => (
