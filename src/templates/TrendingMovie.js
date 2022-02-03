@@ -7,12 +7,14 @@ const TrendingMovie = ({ data: { movie } }) => {
   const [details, setDetails] = useState();
   const [cast, setCast] = useState();
   const [rating, setRating] = useState();
+  const [recommendations, setRecommendations] = useState();
 
   // Fetch more detailed data for the specified movie
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/movie/${movie.id}?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const castURL = `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=353e0f45e349128efd51a2733d9f44f6`;
     const ratingURL = `http://api.themoviedb.org/3/movie/${movie.id}?api_key=353e0f45e349128efd51a2733d9f44f6&append_to_response=release_dates`;
+    const recURL = `https://api.themoviedb.org/3/movie/${movie.id}/recommendations?api_key=353e0f45e349128efd51a2733d9f44f6`;
 
     fetch(url)
       .then((res) => res.json())
@@ -32,14 +34,19 @@ const TrendingMovie = ({ data: { movie } }) => {
         )
       )
       .catch((Rerror) => console.log(Rerror));
-  }, [setDetails, movie.id, setCast, setRating]);
+    fetch(recURL)
+      .then((RecResponse) => RecResponse.json())
+      .then((recRes) => setRecommendations(recRes))
+      .catch((RecError) => console.log(RecError));
+  }, [setDetails, movie.id, setCast, setRating, setRecommendations]);
 
   // console.log(details);
-  console.log(cast);
+  // console.log(cast);
+  console.log(recommendations);
 
   return (
     <Layout>
-      {details && cast && (
+      {details && cast && recommendations && (
         <section className="font-Poppins bg-light-bg">
           <div className="flex w-full">
             {/* Backdrop image */}
@@ -146,6 +153,39 @@ const TrendingMovie = ({ data: { movie } }) => {
                 </div>
               ))}
             </div>
+
+            {/* Recommendations */}
+            <section
+              className={
+                recommendations.results.length > 0 ? "block" : "hidden"
+              }
+            >
+              <h2 className="font-medium mt-2 lg:text-2xl">
+                You may also like
+              </h2>
+              <div className="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mt-5 pb-5">
+                {recommendations.results.slice(0, 10).map((recommendation) => (
+                  <div
+                    key={recommendation.id}
+                    className="flex-none w-2/5 md:w-[30%] mr-0 md:pb-4 rounded-lg h-auto lg:w-[23%] xl:w-[18%] 2xl:max-w-[15%]"
+                  >
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${recommendation.backdrop_path}`}
+                      alt={recommendation.title}
+                      className="rounded-lg shadow-md w-[85%] md:w-96 max-w-[200px]"
+                    />
+                    <div className="ml-2 mr-6 mt-2">
+                      <p className="font-medium text-sm lg:text-lg">
+                        {recommendation.title}
+                      </p>
+                      <p className="text-gray-700 text-sm lg:text-lg">
+                        {recommendation.release_date.slice(0, 4)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         </section>
       )}
