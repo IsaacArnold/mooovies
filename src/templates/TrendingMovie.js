@@ -42,7 +42,7 @@ const TrendingMovie = ({ data: { movie } }) => {
 
   // console.log(details);
   // console.log(cast);
-  console.log(recommendations);
+  // console.log(recommendations);
 
   return (
     <Layout>
